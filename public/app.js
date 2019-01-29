@@ -5,15 +5,6 @@ $.getJSON("/articles", function (data) {
   });
 });
 
-$(document).on("click", "#scrape-button", function () {
-  $.get("/scrape");
-  $.getJSON("/articles", function (data) {
-    data.forEach(article => {
-      $("#articles").append(`<a href='${article.link} data-id=' ${article._id}'> ${article.title}</a> <br> <p>${article.summary}</p> <br> <button data-id='${article._id}' class="view-comments">Comments</button><br><br>`);
-    });
-  });
-})
-
 
 $(document).on("click", ".view-comments", function () {
   // Empty the notes from the note section
