@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/newsScraper", { useNewUrlParser: true });
+mongoose.connect("mongodb://bdelong:mongodb45@ds155411.mlab.com:55411/heroku_s19w3vgl", { useNewUrlParser: true });
 
 // Routes
 
