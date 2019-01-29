@@ -1,13 +1,13 @@
-var express = require("express");
-var mongoose = require("mongoose");
-var axios = require("axios");
-var cheerio = require("cheerio");
-var db = require("./models");
+const express = require("express");
+const mongoose = require("mongoose");
+const axios = require("axios");
+const cheerio = require("cheerio");
+const db = require("./models");
 
-var PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // Initialize Express
-var app = express();
+const app = express();
 
 // Configure middleware
 // Parse request body as JSON
