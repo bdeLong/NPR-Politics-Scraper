@@ -32,6 +32,7 @@ $(document).on("click", ".view-comments", function () {
     .then(function (data) {
       $("#notes").append(`
       <h5>${data.title}</h5>
+      <br>
       <h4>Leave a comment</h4>
       <br>
       <input id='titleinput' name='title' placeholder='Name'>
