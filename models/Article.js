@@ -2,11 +2,10 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
-
-  note: [{
-    type: Schema.Types.ObjectId,
-    ref: "Note",
-  }],
+  date: {
+    type: Date,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -20,8 +19,11 @@ var ArticleSchema = new Schema({
     type: String,
     required: true,
     unique: true
-  }
-
+  },
+  note: [{
+    type: Schema.Types.ObjectId,
+    ref: "Note",
+  }]
 });
 
 var Article = mongoose.model("Article", ArticleSchema);

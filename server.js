@@ -21,7 +21,11 @@ app.get("/scrape", function (req, res) {
 
     $(".item-info").each(function (i, element) {
       var result = {};
-
+      result.date = $(this)
+        .children(".teaser")
+        .children("a")
+        .children("time")
+        .attr("datetime")
       result.title = $(this)
         .children(".title")
         .children("a")
@@ -47,7 +51,7 @@ app.get("/scrape", function (req, res) {
 
 app.get("/articles", function (req, res) {
 
-  db.Article.find({})
+  db.Article.find({}).sort({ datefield: -1 })
     .then(function (dbArticle) {
       res.json(dbArticle);
     })
