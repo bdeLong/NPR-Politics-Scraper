@@ -1,9 +1,18 @@
 // Grab the articles as a json
-$.getJSON("/articles", function (data) {
-  data.forEach(article => {
-    $("#articles").append(`<a href='${article.link} data-id=' ${article._id}'> ${article.title}</a> <br> <p>${article.summary}</p> <br> <button data-id='${article._id}' class="view-comments">Comments</button><br><br>`);
+$.getJSON("/scrape");
+$("#articles").hide();
+
+$(document).on("click", "#scrape-button", function () {
+  $("#articles").show();
+  $("#notes").empty();
+  $("#articles").empty();
+  $.getJSON("/articles", function (data) {
+    data.forEach(article => {
+      $("#articles").append(`<a href='${article.link} data-id=' ${article._id}'> ${article.title}</a> <br> <p>${article.summary}</p> <br> <button data-id='${article._id}'class="view-comments">Comments</button><br><br>`);
+    });
   });
-});
+
+})
 
 
 $(document).on("click", ".view-comments", function () {
@@ -19,26 +28,24 @@ $(document).on("click", ".view-comments", function () {
   })
     // With that done, add the note information to the page
     .then(function (data) {
-      console.log(data);
+
       // The title of the article
-      $("#notes").append(`<h2>${data.title}</h2>`);
+      $("#notes").append(`<h5>${data.title}</h5>`);
+      $("#notes").append(`<h4>Comments:`)
+      if (data.note.length > 0) {
+        data.note.forEach(note => {
+          $("#notes").append(`<h5>${note.title} says: ${note.body}</h5>`)
+        })
+      }
+      else {
+        $("#notes").append(`<h5>Be the first to leave a comment!</h5>`)
+      }
       // An input to enter a new title
       $("#notes").append("<input id='titleinput' name='title' placeholder='Name'>");
       // A textarea to add a new note body
       $("#notes").append("<textarea id='bodyinput' name='body' placeholder='Comment'></textarea>");
       // A button to submit a new note, with the id of the article saved to it
       $("#notes").append(`<button data-id='${data._id}' id='savenote'>Save Note</button>`);
-
-      // If there's a note in the article
-      if (data.note) {
-        data.note.forEach(note => {
-          $("#notes").append(`<h5>Name: ${note.title}</h5> <h6>Comment: ${note.body}</h6>`)
-        })
-        // // Place the title of the note in the title input
-        // $("#titleinput").val(data.note.title);
-        // // Place the body of the note in the body textarea
-        // $("#bodyinput").val(data.note.body);
-      }
     });
 });
 
@@ -57,6 +64,16 @@ $(document).on("click", "#savenote", function () {
       // Value taken from note textarea
       body: $("#bodyinput").val()
     }
+  }).then(function () {
+    $.ajax({
+      method: "GET",
+      url: `/articles/${thisId}`
+    }).then(function (data) {
+      $("#notes h5, h6").empty();
+      data.note.forEach(note => {
+        $("#notes").append(`<h5>Name: ${note.title}</h5> <h6>Comment: ${note.body}</h6>`)
+      })
+    })
   })
 
   // Also, remove the values entered in the input and textarea for note entry
