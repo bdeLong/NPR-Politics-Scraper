@@ -7,7 +7,14 @@ $(document).on("click", "#scrape-button", function () {
   $("#articles").empty();
   $.getJSON("/articles", function (data) {
     data.forEach(article => {
-      $("#articles").append(`<a href='${article.link} data-id=' ${article._id}'> ${article.title}</a> <br> <p class="article-summary">${article.summary}</p> <br> <button data-id='${article._id}'class="view-comments btn btn-primary">Comments</button><br><br>`);
+      $("#articles").append(`
+      <div class="card">
+      <img class="card-img-top" src='${article.image}'
+      <div class="text-left card-body articles">
+      <a class="card-title" href='${article.link} data-id=' ${article._id}'> ${article.title}</a> 
+      <p class="card-text">${article.summary}</p>
+      </div>
+      <button data-id='${article._id}'class="view-comments btn btn-primary">Comments</button>`);
     });
   });
 

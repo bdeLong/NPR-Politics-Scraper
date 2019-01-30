@@ -6,6 +6,10 @@ var ArticleSchema = new Schema({
     type: Date,
     required: true
   },
+  image: {
+    type: String,
+    required: false
+  },
   title: {
     type: String,
     required: true

@@ -19,22 +19,32 @@ app.get("/scrape", function (req, res) {
   axios.get("https://www.npr.org/sections/politics/").then(function (response) {
     var $ = cheerio.load(response.data);
 
-    $(".item-info").each(function (i, element) {
+    $(".has-image").each(function (i, element) {
       var result = {};
       result.date = $(this)
+        .children(".item-info")
         .children(".teaser")
         .children("a")
         .children("time")
         .attr("datetime")
+      result.image = $(this)
+        .children(".item-image")
+        .children(".imagewrap")
+        .children("a")
+        .children("img")
+        .attr("src")
       result.title = $(this)
+        .children(".item-info")
         .children(".title")
         .children("a")
         .text();
       result.link = $(this)
+        .children(".item-info")
         .children(".title")
         .children("a")
         .attr("href");
       result.summary = $(this)
+        .children(".item-info")
         .children(".teaser")
         .children("a")
         .text();
