@@ -9,7 +9,7 @@ $(document).on("click", "#scrape-button", function () {
     data.forEach(article => {
       $("#articles").append(`
       <div class="card">
-      <img class="card-img-top" src='${article.image}'
+      <img class="card-img-top img-fluid" src='${article.image}'
       <div class="text-left card-body articles">
       <a class="card-title" href='${article.link} data-id=' ${article._id}'> ${article.title}</a> 
       <p class="card-text">${article.summary}</p>
