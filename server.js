@@ -51,7 +51,7 @@ app.get("/scrape", function (req, res) {
 
 app.get("/articles", function (req, res) {
 
-  db.Article.find({}).sort({ datefield: -1 })
+  db.Article.find({}).sort({ date: -1 })
     .then(function (dbArticle) {
       res.json(dbArticle);
     })
