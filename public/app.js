@@ -7,7 +7,7 @@ $(document).on("click", "#scrape-button", function () {
   $("#articles").empty();
   $.getJSON("/articles", function (data) {
     data.forEach(article => {
-      $("#articles").append(`<a href='${article.link} data-id=' ${article._id}'> ${article.title}</a> <br> <p>${article.summary}</p> <br> <button data-id='${article._id}'class="view-comments">Comments</button><br><br>`);
+      $("#articles").append(`<a href='${article.link} data-id=' ${article._id}'> ${article.title}</a> <br> <p>${article.summary}</p> <br> <button data-id='${article._id}'class="view-comments btn btn-primary">Comments</button><br><br>`);
     });
   });
 
